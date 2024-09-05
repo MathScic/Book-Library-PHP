@@ -44,7 +44,7 @@ $stmt->execute();
                         <td><?php echo htmlspecialchars($row['year']); ?></td>
                         <td><?php echo htmlspecialchars($row['genre']); ?></td>
                         <td>
-                            <a href="edit_book.php?id=<?php echo $row['id']; ?>">Modifier</a>
+                            <a href="edit_book.php?id=<?php echo $row['id']; ?>" class="modif-link">Modifier</a>
                             <a href="#" onclick="confirmDelete(<?php echo $row['id']; ?>); return false;" class="delete-link">Supprimer</a>
                         </td>
                     </tr>
