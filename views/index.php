@@ -51,6 +51,7 @@ $stmt->execute();
                 <?php endwhile; ?>
             </tbody>
         </table>
+        <a href="add_book.php">Ajouter des livres</a>
     </main>
 
     <script>
