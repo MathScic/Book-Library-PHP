@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Ajouter un Livre</title>
-    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="../assets/add_book.css">
 </head>
 <body>
     <header>
@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <input type="submit" value="Ajouter le Livre">
         </form>
-        <p><a href="index.php" class="add-book">Retour à la liste des livres</a></p>
+        <p><a href="index.php" id="add-book">Retour à la liste des livres</a></p>
     </main>
 </body>
 </html>

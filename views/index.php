@@ -1,50 +1,57 @@
-<?php 
-require_once '../models/Book.php';
-require_once '../models/db.php';
+<?php
+require_once "../models/db.php";
+require_once "../models/Book.php";
 
-//Connexion à la base de données 
 $database = new Database();
 $db = $database->getConnection();
 
-//Initialisation de l'objet Book
 $book = new Book($db);
 
-
-// récupère tous les livres 
-$stmt = $book-> readAll();
+// Récupérer tous les livres
+$stmt = $db->query("SELECT * FROM books");
+$books = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestion de la Bibliothèque</title>
-  <link rel="stylesheet" href="../assets/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des livres</title>
+    <link rel="stylesheet" href="../../library_management/assets/style.css">
 </head>
 <body>
-  <header>
-    <h1>Listes des livres</h1>
-  </header>
-  <main>
-    <table border="1">
-      <tr>
-        <th>Titre</th>
-        <th>Auteur</th>
-        <th>Année</th>
-        <th>Genre</th>
-      </tr>
-      <?php while ($row = $stmt-> fetch(PDO::FETCH_ASSOC)) : ?>
-        <tr>
-          <td><?php echo htmlspecialchars($row["title"]); ?></td>
-          <td><?php echo htmlspecialchars($row["author"]); ?></td>
-          <td><?php echo htmlspecialchars($row["year"]); ?></td>
-          <td><?php echo htmlspecialchars($row["genre"]); ?></td>
-        </tr>
-      <?php endwhile ?>
-    </table>
-    <p><a href="add_book.php" id="main-page">Ajoutons des livres</a></p>
-    <p><a href="edit_book.php" id="edit-page">Modifions des livres</a></p>
-  </main>
+    <header>
+        <h1>Liste des livres</h1>
+    </header>
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Titre</th>
+                    <th>Auteur</th>
+                    <th>Année</th>
+                    <th>Genre</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($books as $book): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($book['id']); ?></td>
+                        <td><?php echo htmlspecialchars($book['title']); ?></td>
+                        <td><?php echo htmlspecialchars($book['author']); ?></td>
+                        <td><?php echo htmlspecialchars($book['year']); ?></td>
+                        <td><?php echo htmlspecialchars($book['genre']); ?></td>
+                        <td>
+                            <a href="edit_book.php?id=<?php echo $book['id']; ?>" id="edit-link">Modifier</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <p><a href="add_book.php">Ajouter un livre</a></p>
+    </main>
 </body>
 </html>
